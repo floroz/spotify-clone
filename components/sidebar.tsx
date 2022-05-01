@@ -4,7 +4,6 @@ import {
   ListItem,
   ListIcon,
   Divider,
-  Center,
   LinkBox,
   LinkOverlay,
 } from "@chakra-ui/layout";
@@ -18,8 +17,6 @@ import {
 } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
-
-type Props = {};
 
 const navMenu = [
   {
