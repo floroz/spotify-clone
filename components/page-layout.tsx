@@ -17,7 +17,6 @@ const PageLayout: React.FC<Props> = ({ children }) => {
         width={sidebarWidth}
         left="0"
         height={`calc(100vh - ${playbarHeigh})`}
-        overflowY="auto"
       >
         <Sidebar />
       </Box>
