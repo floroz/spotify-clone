@@ -1,6 +1,6 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "reset-css";
-import Layout from "../components/layout";
+import PageLayout from "../components/page-layout";
 
 const theme = extendTheme({
   colors: {
@@ -30,14 +30,14 @@ const theme = extendTheme({
   },
 });
 
-const MyApp = ({ Component, pageProps }) => {
+const SpotifyApp = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
-      <Layout>
+      <PageLayout>
         <Component {...pageProps} />
-      </Layout>
+      </PageLayout>
     </ChakraProvider>
   );
 };
 
-export default MyApp;
+export default SpotifyApp;

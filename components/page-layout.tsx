@@ -4,10 +4,10 @@ import Sidebar from "./sidebar";
 
 type Props = {};
 
-const sidebarWidth = "350px";
-const playbarHeigh = "100px";
+const sidebarWidth = "21.875rem";
+const playbarHeigh = "6.25rem";
 
-const Layout: React.FC<Props> = ({ children }) => {
+const PageLayout: React.FC<Props> = ({ children }) => {
   return (
     <Box w="100vw" height="100vh" backgroundColor="black">
       <Box
@@ -45,4 +45,4 @@ const Layout: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default Layout;
+export default PageLayout;
