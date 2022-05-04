@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { prisma } from "../lib/prisma";
 import { artistsData } from "./songs-data";
-
-const prisma = new PrismaClient();
 
 const run = async () => {
   await Promise.all(
