@@ -1,5 +1,3 @@
-const emailPattern = "^w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$";
-
 export const validator = {
   email: (s: string, minLength?: number, maxLength?: number): boolean => {
     if (maxLength && s.length > maxLength) {
@@ -10,7 +8,8 @@ export const validator = {
       return false;
     }
 
-    if (!new RegExp(emailPattern).test(s)) {
+    // eslint-disable-next-line prefer-regex-literals
+    if (!new RegExp(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/).test(s)) {
       return false;
     }
 

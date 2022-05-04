@@ -12,8 +12,8 @@ const handler = nc<NextApiRequest, NextApiResponse>().post(async (req, res) => {
   if (!email || !password)
     return res.status(400).json({ message: "Bad request" });
 
-  if (!validator.email(email, 50) || !validator.password(password, 4, 60)) {
-    return res.status(400).json({ message: "Bad Request" });
+  if (!validator.email(email, 4, 50) || !validator.password(password, 4, 60)) {
+    return res.status(400).json({ message: "Invalid Payload" });
   }
 
   const salt = bcrypt.genSaltSync();
