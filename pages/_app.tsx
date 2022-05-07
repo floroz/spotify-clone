@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import "reset-css";
 import PageLayout from "../components/page-layout";
 
@@ -30,13 +31,21 @@ const theme = extendTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 const SpotifyApp = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider theme={theme}>
-      <PageLayout>
-        <Component {...pageProps} />
-      </PageLayout>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        {Component.noLayout ? (
+          <Component {...pageProps} />
+        ) : (
+          <PageLayout>
+            <Component {...pageProps} />
+          </PageLayout>
+        )}
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 };
 
