@@ -1,5 +1,5 @@
 import { useMutation, UseMutationOptions } from "react-query";
-import { authService, UserPayload } from "./services/auth.service";
+import { authService, UserPayload } from "../lib/services/auth.service";
 
 export const useLoginMutation = (
   options?: Omit<

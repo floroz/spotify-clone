@@ -9,7 +9,7 @@ import { emailPattern } from "../../lib/validator";
 import { FormControlEmail } from "./form-control-email";
 import { FormControlPassword } from "./form-control-password";
 import { AlertInfo } from "../alert-info";
-import { useLoginMutation, useSignupMutation } from "../../lib/mutations";
+import { useLoginMutation, useSignupMutation } from "../../hooks/mutations";
 import { SubmitButton } from "./submit-button";
 import { ROUTES } from "../../lib/constants/routes";
 
