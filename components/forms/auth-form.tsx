@@ -1,16 +1,25 @@
-import { Flex } from "@chakra-ui/react";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Flex, Text, Box, Link } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { FC, useCallback, VFC } from "react";
 import Image from "next/image";
+import NextLink from "next/link";
 import { emailPattern } from "../../lib/validator";
 import { FormControlEmail } from "./form-control-email";
 import { FormControlPassword } from "./form-control-password";
 import { AlertInfo } from "../alert-info";
 import { useLoginMutation, useSignupMutation } from "../../lib/mutations";
 import { SubmitButton } from "./submit-button";
+import { ROUTES } from "../../lib/constants/routes";
 
-const FormLayout: FC = ({ children }) => {
+type Mode = "login" | "signup";
+
+const FormLayout: FC<{ mode: Mode; handleSubmit: any }> = ({
+  children,
+  mode,
+  handleSubmit,
+}) => {
   return (
     <Flex
       height="100vh"
@@ -27,11 +36,37 @@ const FormLayout: FC = ({ children }) => {
         bg="gray.900"
         borderRadius="sm"
         flexDir="column"
+        w="31.25rem"
       >
         <Flex justify="center" align="center" mb="3rem">
           <Image src="/traxlogo.svg" height={60} width={120} color="white" />
         </Flex>
-        {children}
+        <Box
+          as="form"
+          noValidate
+          onSubmit={handleSubmit}
+          display="flex"
+          flexDir="column"
+          justifyItems="flex-start"
+          alignItems="flex-start"
+        >
+          {children}
+          <Box mt={4}>
+            <Text>
+              {mode === "login"
+                ? " You don't have an account?"
+                : " You already have an account?"}{" "}
+              <NextLink
+                href={mode === "login" ? ROUTES.signup : ROUTES.login}
+                passHref
+              >
+                <Link fontWeight="bold" color="green.500">
+                  {mode === "login" ? "Login" : "Signup"}
+                </Link>
+              </NextLink>
+            </Text>
+          </Box>
+        </Box>
       </Flex>
     </Flex>
   );
@@ -40,7 +75,11 @@ const FormLayout: FC = ({ children }) => {
 const LoginForm: VFC = () => {
   const router = useRouter();
 
-  const loginMutation = useLoginMutation();
+  const loginMutation = useLoginMutation({
+    onSuccess: () => {
+      router.replace(ROUTES.home);
+    },
+  });
 
   const onSubmit = useCallback(
     async (e) => {
@@ -49,12 +88,11 @@ const LoginForm: VFC = () => {
           email: e.email,
           password: e.password,
         });
-        router.replace("/");
       } catch (error) {
         console.error(error);
       }
     },
-    [loginMutation, router]
+    [loginMutation]
   );
 
   const {
@@ -64,45 +102,43 @@ const LoginForm: VFC = () => {
   } = useForm();
 
   return (
-    <FormLayout>
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <FormControlEmail
-          {...register("email", {
-            minLength: 3,
-            maxLength: 64,
-            required: {
-              message: "Email is required",
-              value: true,
-            },
-            pattern: {
-              message: "Please insert a valid email",
-              value: emailPattern,
-            },
-          })}
-          autoComplete="username"
-          error={errors?.email}
-        />
+    <FormLayout mode="login" handleSubmit={handleSubmit(onSubmit)}>
+      <FormControlEmail
+        {...register("email", {
+          minLength: 3,
+          maxLength: 64,
+          required: {
+            message: "Email is required",
+            value: true,
+          },
+          pattern: {
+            message: "Please insert a valid email",
+            value: emailPattern,
+          },
+        })}
+        autoComplete="username"
+        error={errors?.email}
+      />
 
-        <FormControlPassword
-          autoComplete="current-password"
-          {...register("password", {
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-            maxLength: {
-              value: 64,
-              message: "Password must be maximum 64 characters",
-            },
-            required: {
-              message: "Password is required",
-              value: true,
-            },
-          })}
-          error={errors?.password}
-        />
-        <SubmitButton isSubmitting={isSubmitting}>Login</SubmitButton>
-      </form>
+      <FormControlPassword
+        autoComplete="current-password"
+        {...register("password", {
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters",
+          },
+          maxLength: {
+            value: 64,
+            message: "Password must be maximum 64 characters",
+          },
+          required: {
+            message: "Password is required",
+            value: true,
+          },
+        })}
+        error={errors?.password}
+      />
+      <SubmitButton isSubmitting={isSubmitting}>Login</SubmitButton>
       {loginMutation.isError && <AlertInfo />}
     </FormLayout>
   );
@@ -111,7 +147,11 @@ const LoginForm: VFC = () => {
 const SignupForm: VFC = () => {
   const router = useRouter();
 
-  const signupMutation = useSignupMutation();
+  const signupMutation = useSignupMutation({
+    onSuccess: () => {
+      router.replace(ROUTES.home);
+    },
+  });
 
   const onSubmit = useCallback(
     async (e) => {
@@ -120,12 +160,11 @@ const SignupForm: VFC = () => {
           email: e.email,
           password: e.password,
         });
-        router.replace("/");
       } catch (error) {
         console.error(error);
       }
     },
-    [router, signupMutation]
+    [signupMutation]
   );
 
   const {
@@ -135,46 +174,44 @@ const SignupForm: VFC = () => {
   } = useForm();
 
   return (
-    <FormLayout>
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <FormControlEmail
-          {...register("email", {
-            minLength: 3,
-            maxLength: 64,
-            required: {
-              message: "Email is required",
-              value: true,
-            },
-            pattern: {
-              message: "Please insert a valid email",
-              value: emailPattern,
-            },
-          })}
-          autoComplete="username"
-          error={errors?.email}
-        />
+    <FormLayout mode="signup" handleSubmit={handleSubmit(onSubmit)}>
+      <FormControlEmail
+        {...register("email", {
+          minLength: 3,
+          maxLength: 64,
+          required: {
+            message: "Email is required",
+            value: true,
+          },
+          pattern: {
+            message: "Please insert a valid email",
+            value: emailPattern,
+          },
+        })}
+        autoComplete="username"
+        error={errors?.email}
+      />
 
-        <FormControlPassword
-          {...register("password", {
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-            maxLength: {
-              value: 64,
-              message: "Password must be maximum 64 characters",
-            },
-            required: {
-              message: "Password is required",
-              value: true,
-            },
-          })}
-          autoComplete="new-password"
-          error={errors?.password}
-        />
+      <FormControlPassword
+        {...register("password", {
+          minLength: {
+            value: 8,
+            message: "Password must be at least 8 characters",
+          },
+          maxLength: {
+            value: 64,
+            message: "Password must be maximum 64 characters",
+          },
+          required: {
+            message: "Password is required",
+            value: true,
+          },
+        })}
+        autoComplete="new-password"
+        error={errors?.password}
+      />
 
-        <SubmitButton isSubmitting={isSubmitting}>Sign up</SubmitButton>
-      </form>
+      <SubmitButton isSubmitting={isSubmitting}>Sign up</SubmitButton>
       {signupMutation.isError && (
         <AlertInfo message={signupMutation.error.message} />
       )}
@@ -182,7 +219,7 @@ const SignupForm: VFC = () => {
   );
 };
 type Props = {
-  mode: "login" | "signup";
+  mode: Mode;
 };
 
 export const AuthForm: VFC<Props> = ({ mode }: Props) => {

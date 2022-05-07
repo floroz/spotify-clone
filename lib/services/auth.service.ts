@@ -1,4 +1,6 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { apiClient } from "../api-client";
+import { API_ENDPOINTS } from "../constants/endpoints";
 
 export type UserPayload = {
   email: string;
@@ -6,17 +8,17 @@ export type UserPayload = {
 };
 
 const logout = () =>
-  axios.post("/api/auth/logout").catch(() => {
+  apiClient.post(API_ENDPOINTS.logout).catch(() => {
     return Promise.reject(new Error("Something went wrong"));
   });
 
 const signup = (body: UserPayload) =>
-  axios.post("/api/auth/signup", body).catch(() => {
+  apiClient.post(API_ENDPOINTS.signup, body).catch(() => {
     return Promise.reject(new Error("Something went wrong"));
   });
 
 const login = (body: UserPayload) =>
-  axios.post("/api/auth/login", body).catch((e: AxiosError) => {
+  apiClient.post(API_ENDPOINTS.login, body).catch((e: AxiosError) => {
     if (e.status === "401") {
       return Promise.reject(new Error("Invalid username or password"));
     }

@@ -18,8 +18,8 @@ export const FormControlEmail = forwardRef<
   FormControlEmailProps
 >(({ error, ...props }, ref) => {
   return (
-    <FormControl isInvalid={!!error} mb={4}>
-      <FormLabel>
+    <FormControl isInvalid={!!error} mb={4} w="100%">
+      <FormLabel w="100%">
         Email
         <Input
           placeholder="Please add your email"

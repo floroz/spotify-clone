@@ -8,10 +8,10 @@ export const SubmitButton: FC<{ isSubmitting: boolean }> = ({
   return (
     <Button
       type="submit"
-      color="white"
       rightIcon={isSubmitting ? <Spinner /> : null}
-      bg="green.500"
       isDisabled={isSubmitting}
+      alignSelf="stretch"
+      colorScheme="green"
     >
       {children}
     </Button>

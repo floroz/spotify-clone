@@ -19,8 +19,8 @@ export const FormControlPassword = forwardRef<
 >(({ error, ...props }, ref) => {
   return (
     <FormControl isInvalid={!!error} mb={4}>
-      <FormLabel>
-        Email
+      <FormLabel w="100%">
+        Password
         <Input ref={ref} {...props} type="password" />
       </FormLabel>
       {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
