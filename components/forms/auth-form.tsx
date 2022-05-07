@@ -1,25 +1,39 @@
-import { Box, Flex, Button, Spinner } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { FC, useCallback, VFC } from "react";
+import Image from "next/image";
 import { emailPattern } from "../../lib/validator";
 import { FormControlEmail } from "./form-control-email";
 import { FormControlPassword } from "./form-control-password";
 import { AlertInfo } from "../alert-info";
 import { useLoginMutation, useSignupMutation } from "../../lib/mutations";
+import { SubmitButton } from "./submit-button";
 
 const FormLayout: FC = ({ children }) => {
   return (
-    <Box height="100vh" width="100vw" bg="black" color="white">
-      <Flex justify="center" align="center" h="6.25rem">
-        hello
+    <Flex
+      height="100vh"
+      width="100vw"
+      bg="black"
+      color="white"
+      justify="center"
+      align="center"
+    >
+      <Flex
+        justify="center"
+        align="center"
+        padding="3.125rem"
+        bg="gray.900"
+        borderRadius="sm"
+        flexDir="column"
+      >
+        <Flex justify="center" align="center" mb="3rem">
+          <Image src="/traxlogo.svg" height={60} width={120} color="white" />
+        </Flex>
+        {children}
       </Flex>
-      <Flex justify="center" align="center" h="calc(100vh - 6.25rem)">
-        <Box padding="3.125rem" bg="gray.900" borderRadius="sm">
-          {children}
-        </Box>
-      </Flex>
-    </Box>
+    </Flex>
   );
 };
 
@@ -87,14 +101,7 @@ const LoginForm: VFC = () => {
           })}
           error={errors?.password}
         />
-
-        <Button
-          type="submit"
-          color="black"
-          rightIcon={isSubmitting ? <Spinner /> : null}
-        >
-          Sign up
-        </Button>
+        <SubmitButton isSubmitting={isSubmitting}>Login</SubmitButton>
       </form>
       {loginMutation.isError && <AlertInfo />}
     </FormLayout>
@@ -166,9 +173,7 @@ const SignupForm: VFC = () => {
           error={errors?.password}
         />
 
-        <Button type="submit" color="black">
-          Sign up {isSubmitting && <Spinner ml={2} />}
-        </Button>
+        <SubmitButton isSubmitting={isSubmitting}>Sign up</SubmitButton>
       </form>
       {signupMutation.isError && (
         <AlertInfo message={signupMutation.error.message} />
