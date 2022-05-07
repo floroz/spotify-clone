@@ -17,6 +17,9 @@ import {
 } from "react-icons/md";
 import Image from "next/image";
 import Link from "next/link";
+import { SkeletonText } from "@chakra-ui/react";
+import { usePlaylistQuery } from "../hooks/queries";
+import { ROUTES } from "../lib/constants/routes";
 
 const navMenu = [
   {
@@ -48,8 +51,6 @@ const musicMenu = [
     route: "/favorites",
   },
 ];
-
-const playlist = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
 
 const Logo: React.VFC = () => (
   <Box w={30} mb={4} px={4}>
@@ -101,21 +102,47 @@ const MusicMenu: React.VFC = () => (
   </Box>
 );
 
-const ScrollableSidebar: React.VFC = () => (
-  <Box h="66%" overflowY="auto" p={4}>
-    <List spacing={2}>
-      {playlist.map((name) => (
-        <ListItem key={name}>
-          <LinkBox>
-            <Link href="/" passHref>
-              <LinkOverlay>{name}</LinkOverlay>
-            </Link>
-          </LinkBox>
-        </ListItem>
-      ))}
-    </List>
-  </Box>
-);
+const ScrollableSidebar: React.VFC = () => {
+  const { data, status } = usePlaylistQuery({
+    retry: 1,
+    refetchOnWindowFocus: false,
+    refetchIntervalInBackground: false,
+  });
+
+  const renderPlaylist = () => {
+    if (status === "loading") {
+      return (
+        <Box w="50%">
+          <SkeletonText noOfLines={20} spacing={3} />
+        </Box>
+      );
+    }
+
+    if (status === "error") {
+      return <Box>Error</Box>;
+    }
+
+    if (data || data?.length) {
+      return <Box>No Playlist</Box>;
+    }
+
+    return data.map((playlist) => (
+      <ListItem key={playlist.id}>
+        <LinkBox>
+          <Link href={`${ROUTES.playlist}/${playlist.name}`} passHref>
+            <LinkOverlay>{playlist.name}</LinkOverlay>
+          </Link>
+        </LinkBox>
+      </ListItem>
+    ));
+  };
+
+  return (
+    <Box h="66%" overflowY="auto" p={4}>
+      <List spacing={2}>{renderPlaylist()}</List>
+    </Box>
+  );
+};
 
 const Sidebar: React.VFC = () => {
   return (
