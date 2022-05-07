@@ -25,7 +25,7 @@ const navMenu = [
   {
     name: "Home",
     icon: MdHome,
-    route: "/",
+    route: ROUTES.home,
   },
   {
     name: "Search",
@@ -35,7 +35,7 @@ const navMenu = [
   {
     name: "Library",
     icon: MdLibraryMusic,
-    route: "/library",
+    route: ROUTES.library,
   },
 ];
 
@@ -122,7 +122,7 @@ const ScrollableSidebar: React.VFC = () => {
       return <Box>Error</Box>;
     }
 
-    if (data || data?.length) {
+    if (!data || !data?.length) {
       return <Box>No Playlist</Box>;
     }
 

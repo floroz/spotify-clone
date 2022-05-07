@@ -61,7 +61,7 @@ const FormLayout: FC<{ mode: Mode; handleSubmit: any }> = ({
                 passHref
               >
                 <Link fontWeight="bold" color="green.500">
-                  {mode === "login" ? "Login" : "Signup"}
+                  {mode === "login" ? "Signup" : "Login"}
                 </Link>
               </NextLink>
             </Text>
