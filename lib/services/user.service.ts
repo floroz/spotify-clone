@@ -1,6 +1,6 @@
-import { apiClient } from "../api-client";
-import { API_ENDPOINTS } from "../constants/endpoints";
-import { Playlist, User } from "../models";
+import { Playlist, User } from "@models";
+import { API_ENDPOINTS } from "@constants";
+import { apiClient } from "./api-client.service";
 
 const getMe = (): Promise<User> => {
   return apiClient

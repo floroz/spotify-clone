@@ -1,4 +1,4 @@
-export const emailPattern =
+export const emailRegexPattern =
   // eslint-disable-next-line no-useless-escape
   /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
 
@@ -19,7 +19,7 @@ export const validator = {
     }
 
     // eslint-disable-next-line prefer-regex-literals
-    if (s.match(emailPattern).length === 0) {
+    if (s.match(emailRegexPattern).length === 0) {
       return false;
     }
 

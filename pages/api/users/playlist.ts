@@ -1,10 +1,7 @@
 import nc from "next-connect";
-import {
-  ExtendedNextApiRequest,
-  ExtendedNextApiResponse,
-} from "../../../lib/api-models";
-import { authMiddleware } from "../../../lib/auth-middleware";
-import { prisma } from "../../../lib/prisma";
+import { ExtendedNextApiRequest, ExtendedNextApiResponse } from "@models";
+import { authMiddleware } from "@middleware";
+import { prisma } from "@db";
 
 const handler = nc<ExtendedNextApiRequest, ExtendedNextApiResponse>()
   .use(authMiddleware)

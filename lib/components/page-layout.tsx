@@ -1,13 +1,13 @@
 import { Box } from "@chakra-ui/layout";
 import React from "react";
-import Sidebar from "./sidebar";
+import { Sidebar } from "./sidebar";
 
 type Props = {};
 
 const sidebarWidth = "21.875rem";
 const playbarHeigh = "6.25rem";
 
-const PageLayout: React.FC<Props> = ({ children }) => {
+export const PageLayout: React.FC<Props> = ({ children }) => {
   return (
     <Box w="100vw" height="100vh" backgroundColor="black">
       <Box
@@ -43,5 +43,3 @@ const PageLayout: React.FC<Props> = ({ children }) => {
     </Box>
   );
 };
-
-export default PageLayout;

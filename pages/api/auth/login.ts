@@ -3,8 +3,8 @@ import jwt from "jsonwebtoken";
 import cookie from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import { prisma } from "../../../lib/prisma";
-import { validator } from "../../../lib/validator";
+import { prisma } from "@db";
+import { validator } from "@utils";
 
 const handler = nc<NextApiRequest, NextApiResponse>().post(async (req, res) => {
   const { email, password } = req.body;

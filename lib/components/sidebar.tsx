@@ -18,8 +18,8 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { SkeletonText } from "@chakra-ui/react";
-import { usePlaylistQuery } from "../hooks/queries";
-import { ROUTES } from "../lib/constants/routes";
+import { usePlaylistQuery } from "@hooks";
+import { ROUTES } from "@constants";
 
 const navMenu = [
   {
@@ -144,7 +144,7 @@ const ScrollableSidebar: React.VFC = () => {
   );
 };
 
-const Sidebar: React.VFC = () => {
+export const Sidebar: React.VFC = () => {
   return (
     <Box as="aside" w="100%" height="100%" px="0.31rem" py={4} color="gray.100">
       <Logo />
@@ -155,5 +155,3 @@ const Sidebar: React.VFC = () => {
     </Box>
   );
 };
-
-export default Sidebar;

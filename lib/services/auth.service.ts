@@ -1,7 +1,7 @@
 import { AxiosError } from "axios";
-import { apiClient } from "../api-client";
-import { API_ENDPOINTS } from "../constants/endpoints";
-import { User } from "../models";
+import { API_ENDPOINTS } from "@constants";
+import { User } from "@models";
+import { apiClient } from "./api-client.service";
 
 export type UserPayload = {
   email: string;

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { ExtendedNextApiRequest, ExtendedNextApiResponse } from "./api-models";
-import { prisma } from "./prisma";
+import { ExtendedNextApiRequest, ExtendedNextApiResponse } from "@models";
+import { prisma } from "@db";
 
 export const authMiddleware = async (
   req: ExtendedNextApiRequest,

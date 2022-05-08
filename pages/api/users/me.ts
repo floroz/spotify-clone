@@ -1,9 +1,6 @@
 import nc from "next-connect";
-import {
-  ExtendedNextApiRequest,
-  ExtendedNextApiResponse,
-} from "../../../lib/api-models";
-import { authMiddleware } from "../../../lib/auth-middleware";
+import { ExtendedNextApiRequest, ExtendedNextApiResponse } from "@models";
+import { authMiddleware } from "@middleware";
 
 const handler = nc<ExtendedNextApiRequest, ExtendedNextApiResponse>()
   .use(authMiddleware)

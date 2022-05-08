@@ -1,7 +1,7 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "reset-css";
-import PageLayout from "../components/page-layout";
+import { PageLayout } from "@components";
 
 const theme = extendTheme({
   colors: {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PROTECTED_ROUTES, ROUTES } from "../lib/constants/routes";
+import { PROTECTED_ROUTES, ROUTES } from "@constants";
 
 export async function middleware(req: NextRequest) {
   try {

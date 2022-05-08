@@ -14,7 +14,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@models": ["lib/models/index.ts"],
+      "@components": ["lib/components/index.ts"],
+      "@constants": ["lib/constants/index.ts"],
+      "@services": ["lib/services/index.ts"],
+      "@hooks": ["lib/hooks/index.ts"],
+      "@utils": ["lib/utils/index.ts"],
+      "@middleware": ["lib/middleware/index.ts"],
+      "@db": ["lib/db/index.ts"],
+      "@feature-auth-page": ["lib/feature/auth-page/index.ts"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

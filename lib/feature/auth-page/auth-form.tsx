@@ -5,13 +5,15 @@ import { useForm } from "react-hook-form";
 import { FC, useCallback, VFC } from "react";
 import Image from "next/image";
 import NextLink from "next/link";
-import { emailPattern } from "../../lib/validator";
-import { FormControlEmail } from "./form-control-email";
-import { FormControlPassword } from "./form-control-password";
-import { AlertInfo } from "../alert-info";
-import { useLoginMutation, useSignupMutation } from "../../hooks/mutations";
-import { SubmitButton } from "./submit-button";
-import { ROUTES } from "../../lib/constants/routes";
+import { emailRegexPattern } from "@utils";
+import { useLoginMutation, useSignupMutation } from "@hooks";
+import { ROUTES } from "@constants";
+import {
+  FormControlEmail,
+  FormControlPassword,
+  AlertInfo,
+  SubmitButton,
+} from "@components";
 
 type Mode = "login" | "signup";
 
@@ -113,7 +115,7 @@ const LoginForm: VFC = () => {
           },
           pattern: {
             message: "Please insert a valid email",
-            value: emailPattern,
+            value: emailRegexPattern,
           },
         })}
         autoComplete="username"
@@ -138,7 +140,9 @@ const LoginForm: VFC = () => {
         })}
         error={errors?.password}
       />
-      <SubmitButton isSubmitting={isSubmitting}>Login</SubmitButton>
+      <SubmitButton isSubmitting={isSubmitting} alignSelf="stretch">
+        Login
+      </SubmitButton>
       {loginMutation.isError && <AlertInfo />}
     </FormLayout>
   );
@@ -185,7 +189,7 @@ const SignupForm: VFC = () => {
           },
           pattern: {
             message: "Please insert a valid email",
-            value: emailPattern,
+            value: emailRegexPattern,
           },
         })}
         autoComplete="username"
@@ -211,7 +215,9 @@ const SignupForm: VFC = () => {
         error={errors?.password}
       />
 
-      <SubmitButton isSubmitting={isSubmitting}>Sign up</SubmitButton>
+      <SubmitButton isSubmitting={isSubmitting} alignSelf="stretch">
+        Sign up
+      </SubmitButton>
       {signupMutation.isError && (
         <AlertInfo message={signupMutation.error.message} />
       )}

@@ -1,17 +1,18 @@
-import { Button, Spinner } from "@chakra-ui/react";
+import { Button, Spinner, ButtonProps } from "@chakra-ui/react";
 import { FC } from "react";
 
-export const SubmitButton: FC<{ isSubmitting: boolean }> = ({
+export const SubmitButton: FC<{ isSubmitting: boolean } & ButtonProps> = ({
   children,
   isSubmitting,
+  ...props
 }) => {
   return (
     <Button
+      colorScheme="green"
+      {...props}
       type="submit"
       rightIcon={isSubmitting ? <Spinner /> : null}
       isDisabled={isSubmitting}
-      alignSelf="stretch"
-      colorScheme="green"
     >
       {children}
     </Button>
